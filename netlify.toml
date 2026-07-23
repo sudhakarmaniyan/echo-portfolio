@@ -1,6 +1,6 @@
 [build]
   base = "echo portfolio/Frontend"
-  command = "npm run build"
+  command = "CI=false npm run build"
   publish = "dist"
 
 [[redirects]]
