@@ -103,7 +103,7 @@ export default function ServiceDetails() {
                 boxShadow: `0 20px 40px ${service.color}66`
               }}
             >
-              {React.cloneElement(service.icon as React.ReactElement, { size: 48, strokeWidth: 2 })}
+              {React.cloneElement(service.icon as React.ReactElement<any>, { size: 48, strokeWidth: 2 })}
             </motion.div>
 
             <motion.span 

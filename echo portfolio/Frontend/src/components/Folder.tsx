@@ -69,7 +69,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }: Fol
     });
   };
 
-  const handlePaperMouseLeave = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+  const handlePaperMouseLeave = (_e: React.MouseEvent<HTMLDivElement>, index: number) => {
     setPaperOffsets((prev) => {
       const newOffsets = [...prev];
       newOffsets[index] = { x: 0, y: 0 };

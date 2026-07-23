@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +6,7 @@ import Stack from '../Stack';
 import { servicesData } from '../../data/services';
 
 export default function ServicesSection() {
-  const [services, setServices] = useState(servicesData);
+  const [services] = useState(servicesData);
   const navigate = useNavigate();
 
   // NOTE: Prepared for future admin feature
@@ -72,7 +72,7 @@ export default function ServicesSection() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <span style={{ fontSize: '1.5rem', fontWeight: 800, color: service.color, opacity: 0.8 }}>{service.id}</span>
                     <div style={{ color: service.color }}>
-                      {React.cloneElement(service.icon as React.ReactElement, { size: 36 })}
+                      {React.cloneElement(service.icon as React.ReactElement<any>, { size: 36 })}
                     </div>
                   </div>
                   

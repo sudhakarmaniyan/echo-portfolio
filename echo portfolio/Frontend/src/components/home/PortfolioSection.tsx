@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Folder from '../Folder';
+// @ts-ignore
 import GradientText from '../GradientText';
 import { ExternalLink, ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 interface Project {
   id: number;
@@ -55,7 +55,7 @@ export default function PortfolioSection() {
             <Folder 
               color="#FF6B6B"
               size={1.1}
-              items={projects.map((p, i) => (
+              items={projects.map((p) => (
                 <div 
                   key={p.id} 
                   style={{ 

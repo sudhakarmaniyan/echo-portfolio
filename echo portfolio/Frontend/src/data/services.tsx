@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Monitor, Code, Palette } from 'lucide-react';
 
 export const servicesData = [

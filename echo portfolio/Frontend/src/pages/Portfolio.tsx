@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { LayoutGrid, List, X, ExternalLink } from 'lucide-react';
-import { motion, useSpring, AnimatePresence } from 'framer-motion';
+import { LayoutGrid, List, ExternalLink } from 'lucide-react';
+import { motion, useSpring } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+// @ts-ignore
 import RotatingText from '../components/RotatingText';
 import SnellenbergCard from '../components/SnellenbergCard';
 

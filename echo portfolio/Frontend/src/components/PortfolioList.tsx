@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { motion, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { X, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import ProjectModal3D from './ProjectModal3D';
 

@@ -86,7 +86,7 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            variants={menuVars}
+            variants={menuVars as any}
             initial="initial"
             animate="animate"
             exit="exit"
@@ -114,7 +114,7 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
                   const isActive = location.pathname === link.path;
                   return (
                     <div key={link.name} style={{ overflow: 'hidden' }}>
-                      <motion.div variants={linkVars} style={{ display: 'flex', alignItems: 'center' }}>
+                      <motion.div variants={linkVars as any} style={{ display: 'flex', alignItems: 'center' }}>
                         <div style={{ 
                           width: '10px', 
                           height: '10px', 

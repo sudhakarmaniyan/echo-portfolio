@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+// @ts-ignore
 import CircularGallery from '../components/CircularGallery';
 
 interface Testimonial {

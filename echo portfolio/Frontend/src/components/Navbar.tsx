@@ -1,6 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import MagneticNavLink from './MagneticNavLink';
+
 import OverlayMenu from './OverlayMenu';
 import GooeyNav from './GooeyNav';
 
