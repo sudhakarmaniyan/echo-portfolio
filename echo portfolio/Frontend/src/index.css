@@ -161,7 +161,7 @@ main {
 
 /* Navbar */
 .navbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -208,6 +208,12 @@ main {
 
 @media (max-width: 768px) {
   .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
     display: none !important;
   }
 }
@@ -1444,7 +1450,9 @@ main {
   margin-top: -80px; /* Pull up over the navbar padding */
   margin-left: calc(-50vw + 50%); /* Break out of container */
   background: #a0a3a7;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;

@@ -13,7 +13,7 @@ export default function AboutUs() {
         <span className="hero-subtitle">Our Story</span>
         <h2>Redefining Digital Landscapes.</h2>
         <p className="mx-auto" style={{ maxWidth: '700px' }}>
-          Echo is a premium digital agency focused on delivering high-performance, 
+          Echo is a premium digital agency focused on delivering high-performance,
           aesthetically stunning digital products for brands that refuse to blend in.
         </p>
       </div>
@@ -25,11 +25,11 @@ export default function AboutUs() {
         <div className="about-content">
           <h3>Driven by Innovation.</h3>
           <p>
-            We don't just build websites; we craft digital ecosystems. Our team of 
-            designers and engineers work in unison to push the boundaries of what's 
+            We don't just build websites; we craft digital ecosystems. Our team of
+            designers and engineers work in unison to push the boundaries of what's
             possible on the web.
           </p>
-          
+
           <div className="feature-list mt-8">
             <div className="feature-item">
               <Zap className="feature-icon text-accent-purple" />

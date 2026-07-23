@@ -27,7 +27,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="section" style={{ perspective: '1000px' }}>
+    <section id="testimonials" className="section" style={{ perspective: '1000px' }}>
       <motion.div 
         className="text-center mb-12"
         initial={{ opacity: 0, rotateX: 30, y: 50 }}

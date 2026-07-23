@@ -36,6 +36,18 @@ export default function MagneticNavLink({ to, label, isActive }: MagneticNavLink
         to={to}
         onMouseMove={handleMouse}
         onMouseLeave={reset}
+        onClick={(e) => {
+          if (to.startsWith('/#') && window.location.pathname === '/') {
+            const hash = to.replace('/#', '#');
+            const target = document.querySelector(hash);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth' });
+              // update url hash without refresh
+              window.history.pushState(null, '', hash);
+            }
+          }
+        }}
         className="magnetic-nav-link hover-target"
         style={{
           display: 'inline-block',

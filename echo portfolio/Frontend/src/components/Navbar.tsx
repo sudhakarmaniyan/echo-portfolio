@@ -7,21 +7,25 @@ import GooeyNav from './GooeyNav';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showFloatingNav, setShowFloatingNav] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
   const fullNavLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Testimonials', path: '/testimonials' },
-    { name: 'Packages', path: '/packages' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Home', path: '/#hero' },
+    { name: 'About', path: '/#about' },
+    { name: 'Portfolio', path: '/#portfolio' },
+    { name: 'Testimonials', path: '/#testimonials' },
+    { name: 'Packages', path: '/#packages' },
+    { name: 'Contact', path: '/#contact' },
   ];
 
   const constantLinks = [
-    { name: 'About', path: '/about' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Home', path: '/#hero' },
+    { name: 'About', path: '/#about' },
+    { name: 'Portfolio', path: '/#portfolio' },
+    { name: 'Testimonials', path: '/#testimonials' },
+    { name: 'Packages', path: '/#packages' },
+    { name: 'Contact', path: '/#contact' },
   ];
 
   // Show floating hamburger menu when scrolling up
@@ -40,6 +44,7 @@ export default function Navbar() {
         setShowFloatingNav(false);
       }
       
+      setIsScrolled(currentScrollY > 50);
       lastScrollY.current = currentScrollY;
     };
 
@@ -66,7 +71,17 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="navbar">
+      <header 
+        className="navbar" 
+        style={{
+          background: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent',
+          backdropFilter: isScrolled ? 'blur(10px)' : 'none',
+          boxShadow: isScrolled ? '0 4px 30px rgba(0, 0, 0, 0.05)' : 'none',
+          borderBottom: isScrolled ? '1px solid rgba(0,0,0,0.05)' : 'none',
+          transition: 'all 0.3s ease',
+          padding: isScrolled ? '1rem 5%' : '2rem 5%'
+        }}
+      >
         <div className="logo">
           {location.pathname === '/' && (
             <div style={{ display: 'flex', alignItems: 'center' }}>

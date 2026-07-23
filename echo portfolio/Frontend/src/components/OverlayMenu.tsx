@@ -26,7 +26,7 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
 
   useEffect(() => {
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   const menuVars = {
     initial: { x: '100%' },
@@ -49,6 +49,7 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
   return (
     <>
       <div 
+        className="mobile-only"
         style={{
           position: 'fixed',
           top: '2rem',
