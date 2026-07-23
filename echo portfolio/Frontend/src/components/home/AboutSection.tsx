@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Target, Zap, Users } from 'lucide-react';
+import TiltedCard from '../TiltedCard';
 
 export default function AboutSection() {
   return (
@@ -13,14 +14,27 @@ export default function AboutSection() {
       >
         <motion.div
           className="glass-panel about-image"
-          whileHover={{ rotateY: 10, rotateX: -10, scale: 1.02, zIndex: 10 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          style={{ transformStyle: 'preserve-3d', cursor: 'grab' }}
+          style={{ padding: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '500px' }}
         >
-          <motion.img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
-            alt="Team collaborating"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }}
+          <TiltedCard
+            imageSrc="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
+            altText="CEO Profile"
+            captionText="Our CEO"
+            containerHeight="100%"
+            containerWidth="100%"
+            imageHeight="100%"
+            imageWidth="100%"
+            rotateAmplitude={12}
+            scaleOnHover={1.05}
+            showMobileWarning={false}
+            showTooltip={true}
+            displayOverlayContent={true}
+            overlayContent={
+              <div style={{ position: 'absolute', bottom: '2rem', left: '2rem', color: '#fff', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+                <h3 style={{ margin: 0, fontSize: '1.5rem' }}>Sudhakar</h3>
+                <p style={{ margin: 0, opacity: 0.9 }}>Founder & CEO</p>
+              </div>
+            }
           />
         </motion.div>
         <div className="about-content">

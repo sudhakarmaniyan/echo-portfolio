@@ -58,7 +58,13 @@
     color 0.3s ease,
     box-shadow 0.3s ease;
   box-shadow: 0 0 0.5px 1.5px transparent;
-  color: #1c1d20; /* Dark text for light mode nav */
+  color: #ffffff; /* White text for dark video background */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.scrolled .gooey-nav-container nav ul li {
+  color: #1c1d20; /* Dark text when scrolled */
+  text-shadow: none;
 }
 
 .gooey-nav-container nav ul li a {
@@ -72,6 +78,10 @@
 }
 
 .gooey-nav-container nav ul li:focus-within:has(:focus-visible) {
+  box-shadow: 0 0 0.5px 1.5px #ffffff;
+}
+
+.scrolled .gooey-nav-container nav ul li:focus-within:has(:focus-visible) {
   box-shadow: 0 0 0.5px 1.5px #1c1d20;
 }
 
@@ -80,16 +90,24 @@
   position: absolute;
   inset: 0;
   border-radius: 10px;
-  background: #1c1d20; /* Dark bubble */
+  background: #ffffff; /* White bubble by default */
   opacity: 0;
   transform: scale(0);
   transition: all 0.3s ease;
   z-index: -1;
 }
 
+.scrolled .gooey-nav-container nav ul li::after {
+  background: #1c1d20; /* Dark bubble when scrolled */
+}
+
 .gooey-nav-container nav ul li.active {
-  color: white; /* White text when inside the dark bubble */
+  color: #1c1d20; /* Dark text on white bubble */
   text-shadow: none;
+}
+
+.scrolled .gooey-nav-container nav ul li.active {
+  color: #ffffff; /* White text on dark bubble */
 }
 
 .gooey-nav-container nav ul li.active::after {

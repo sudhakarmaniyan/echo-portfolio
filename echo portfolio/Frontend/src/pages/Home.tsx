@@ -65,8 +65,9 @@ export default function Home() {
           color: '#ffffff',
           borderTopLeftRadius: '60px',
           borderTopRightRadius: '60px',
-          padding: '8rem 0 4rem 0',
+          padding: '8rem 0 8rem 0',
           marginTop: '4rem',
+          marginBottom: '-4rem',
           boxShadow: '0 -20px 40px rgba(0,0,0,0.2)'
         }}>
           <div className="container">

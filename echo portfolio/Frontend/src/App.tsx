@@ -3,9 +3,11 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Portfolio from './pages/Portfolio';
+import ProjectDetails from './pages/ProjectDetails';
 import Testimonials from './pages/Testimonials';
 import Packages from './pages/Packages';
 import ContactUs from './pages/ContactUs';
+import ServiceDetails from './pages/ServiceDetails';
 import './index.css';
 
 function App() {
@@ -16,9 +18,11 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="portfolio" element={<Portfolio />} />
+          <Route path="portfolio/:id" element={<ProjectDetails />} />
           <Route path="testimonials" element={<Testimonials />} />
           <Route path="packages" element={<Packages />} />
           <Route path="contact" element={<ContactUs />} />
+          <Route path="service/:id" element={<ServiceDetails />} />
         </Route>
       </Routes>
     </Router>

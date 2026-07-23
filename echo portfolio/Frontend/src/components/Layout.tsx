@@ -24,13 +24,21 @@ export default function Layout() {
       requestAnimationFrame(raf);
     }
 
+    // @ts-ignore
+    window.lenis = lenis;
+
     requestAnimationFrame(raf);
 
     // Scroll to top on route change
     window.scrollTo(0, 0);
 
+    // Set data-path for CSS styling based on route
+    document.body.setAttribute('data-path', location.pathname);
+
     return () => {
       lenis.destroy();
+      // @ts-ignore
+      delete window.lenis;
     };
   }, [location.pathname]);
 
@@ -39,7 +47,7 @@ export default function Layout() {
       <CursorFollower />
       <div className="layout-container">
         <Navbar />
-        <main className="container page-transition" style={{ flex: 1, width: '100%', paddingBottom: '2rem' }}>
+        <main className="container page-transition" style={{ flex: 1, width: '100%' }}>
           <Outlet />
         </main>
         <Footer />

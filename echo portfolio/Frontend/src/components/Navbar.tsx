@@ -72,7 +72,7 @@ export default function Navbar() {
   return (
     <>
       <header 
-        className="navbar" 
+        className={`navbar ${isScrolled ? 'scrolled' : ''}`}
         style={{
           background: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent',
           backdropFilter: isScrolled ? 'blur(10px)' : 'none',
@@ -92,7 +92,9 @@ export default function Navbar() {
                   height: '80px', 
                   width: 'auto',
                   objectFit: 'contain',
-                  display: 'block'
+                  display: 'block',
+                  filter: isScrolled ? 'none' : 'brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.5))',
+                  transition: 'filter 0.3s ease'
                 }} 
               />
             </div>

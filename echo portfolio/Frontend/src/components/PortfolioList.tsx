@@ -3,6 +3,7 @@ import { motion, useSpring, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { X, ExternalLink } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import ProjectModal3D from './ProjectModal3D';
 
 interface Project {
   id: number;
@@ -38,16 +39,7 @@ export default function PortfolioList({ projects }: PortfolioListProps) {
   }, [cursorX, cursorY]);
 
   // Lock scroll when modal is open
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [selectedProject]);
+  // Removed redundant scroll lock here as it is handled perfectly by ProjectModal3D
 
   return (
     <div className="portfolio-section-container">
@@ -117,57 +109,11 @@ export default function PortfolioList({ projects }: PortfolioListProps) {
         document.body
       )}
 
-      {/* Project Details Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div 
-            className="project-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div 
-              className="project-modal-content"
-              initial={{ y: 50, opacity: 0, scale: 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 20, opacity: 0, scale: 0.95 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                className="project-modal-close hover-target"
-                onClick={() => setSelectedProject(null)}
-                aria-label="Close modal"
-              >
-                <X size={24} />
-              </button>
-              
-              <img 
-                src={selectedProject.image_url || 'https://via.placeholder.com/800x400'} 
-                alt={selectedProject.title}
-                className="project-modal-image"
-              />
-              
-              <div className="project-modal-body">
-                <h2>{selectedProject.title}</h2>
-                <p>{selectedProject.description}</p>
-                
-                {selectedProject.live_url && (
-                  <a 
-                    href={selectedProject.live_url} 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className="project-modal-live-btn hover-target"
-                  >
-                    <ExternalLink size={20} /> View Live Project
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Project Details 3D Modal */}
+      <ProjectModal3D 
+        project={selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+      />
     </div>
   );
 }

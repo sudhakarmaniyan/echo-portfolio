@@ -14,20 +14,43 @@ export default function HeroSection() {
           className="hero-marquee-text"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+          style={{ display: "flex", width: "max-content" }}
         >
-          Echo Digital Works — Echo Digital Works — Echo Digital Works — Echo Digital Works —
+          <span style={{ display: 'flex', gap: '3rem', paddingRight: '3rem' }}>
+            <span>Echo Digital Works</span>
+            <span style={{ opacity: 0.5 }}>—</span>
+            <span>Echo Digital Works</span>
+            <span style={{ opacity: 0.5 }}>—</span>
+            <span>Echo Digital Works</span>
+            <span style={{ opacity: 0.5 }}>—</span>
+            <span>Echo Digital Works</span>
+            <span style={{ opacity: 0.5 }}>—</span>
+          </span>
+          <span style={{ display: 'flex', gap: '3rem', paddingRight: '3rem' }}>
+            <span>Echo Digital Works</span>
+            <span style={{ opacity: 0.5 }}>—</span>
+            <span>Echo Digital Works</span>
+            <span style={{ opacity: 0.5 }}>—</span>
+            <span>Echo Digital Works</span>
+            <span style={{ opacity: 0.5 }}>—</span>
+            <span>Echo Digital Works</span>
+            <span style={{ opacity: 0.5 }}>—</span>
+          </span>
         </motion.div>
       </motion.div>
 
-      {/* Center CEO Image */}
-      <motion.div
-        className="hero-ceo-container"
-        initial={{ y: 100, x: "-50%", opacity: 0 }}
-        animate={{ y: 0, x: "-50%", opacity: 1 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <img src="/ceo_portrait.png" alt="CEO" className="hero-ceo-image" />
-      </motion.div>
+      {/* Background Video */}
+      <motion.video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="hero-background-video"
+        src="/hero_video.mp4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+      />
     </motion.section>
   );
 }

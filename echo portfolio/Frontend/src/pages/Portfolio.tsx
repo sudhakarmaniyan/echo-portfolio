@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
-import { ExternalLink, LayoutGrid, List, X } from 'lucide-react';
+import { LayoutGrid, List, X, ExternalLink } from 'lucide-react';
 import { motion, useSpring, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
+import RotatingText from '../components/RotatingText';
 import SnellenbergCard from '../components/SnellenbergCard';
+
 interface Project {
   id: number;
   title: string;
@@ -16,7 +19,7 @@ export default function Portfolio() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [hoveredProject, setHoveredProject] = useState<Project | null>(null);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const navigate = useNavigate();
 
   // Use springs for smooth cursor following (list view)
   const springConfig = { damping: 25, stiffness: 150 };
@@ -49,34 +52,47 @@ export default function Portfolio() {
   }, [viewMode, cursorX, cursorY]);
 
   // Lock scroll when modal is open
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [selectedProject]);
+  // Removed redundant scroll lock here as it is handled perfectly by ProjectModal3D
 
   return (
     <div className="page-animate section portfolio-page">
       <div className="portfolio-header-section">
-        <h1 className="portfolio-main-title giant-title">
-          Creating next level<br />digital products
+        <h1 className="portfolio-main-title giant-title" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1.3 }}>
+          Creating next level<br />
+          <RotatingText
+            texts={['digital products', 'web experiences', 'brand identities', 'UI/UX designs']}
+            mainClassName="text-accent"
+            staggerFrom="last"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-120%" }}
+            staggerDuration={0.025}
+            splitLevelClassName="overflow-hidden"
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            rotationInterval={3000}
+            style={{
+              color: 'var(--accent-color, #3b60e4)',
+              overflow: 'hidden',
+              display: 'inline-flex',
+              paddingTop: '0',
+              paddingBottom: '0.1em',
+              marginTop: '0.4em',
+              marginBottom: '-0.1em',
+              verticalAlign: 'bottom'
+            }}
+          />
         </h1>
-        
+
         <div className="portfolio-controls">
           <div className="view-toggles">
-            <button 
+            <button
               className={`view-toggle-btn hover-target ${viewMode === 'list' ? 'active' : ''}`}
               onClick={() => setViewMode('list')}
               aria-label="List view"
             >
               <List size={20} />
             </button>
-            <button 
+            <button
               className={`view-toggle-btn hover-target ${viewMode === 'grid' ? 'active' : ''}`}
               onClick={() => setViewMode('grid')}
               aria-label="Grid view"
@@ -93,34 +109,32 @@ export default function Portfolio() {
         <div className="text-center" style={{ padding: '4rem 0' }}>No projects found. Check the admin dashboard.</div>
       ) : (
         <div className={`portfolio-content view-${viewMode}`}>
-          
+
           {/* List View */}
           {viewMode === 'list' && (
             <div className="portfolio-list-view">
               <div className="portfolio-list-header">
                 <span className="col-client">CLIENT</span>
-                <span className="col-services">SERVICES</span>
               </div>
-              
+
               {projects.map((project) => (
-                <div 
-                  key={project.id} 
+                <div
+                  key={project.id}
                   className="snellenberg-list-row"
                   onMouseEnter={() => setHoveredProject(project)}
                   onMouseLeave={() => setHoveredProject(null)}
                   onClick={() => {
-                    setSelectedProject(project);
-                    setHoveredProject(null);
+                    navigate('/portfolio/' + project.id);
                   }}
                 >
                   <h3 className="col-client" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     {project.title}
                     {project.live_url && (
-                      <a 
-                        href={project.live_url} 
-                        target="_blank" 
-                        rel="noreferrer" 
-                        className="title-live-link hover-target" 
+                      <a
+                        href={project.live_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="title-live-link hover-target"
                         title="View Live Project"
                         onClick={e => e.stopPropagation()}
                       >
@@ -138,10 +152,10 @@ export default function Portfolio() {
           {viewMode === 'grid' && (
             <div className="snellenberg-grid">
               {projects.map((project) => (
-                <SnellenbergCard 
-                  key={project.id} 
-                  project={project} 
-                  onClick={setSelectedProject} 
+                <SnellenbergCard
+                  key={project.id}
+                  project={project}
+                  onClick={(p) => navigate('/portfolio/' + p.id)}
                 />
               ))}
             </div>
@@ -159,8 +173,8 @@ export default function Portfolio() {
             y: cursorY,
           }}
           animate={{
-            opacity: hoveredProject && !selectedProject ? 1 : 0,
-            scale: hoveredProject && !selectedProject ? 1 : 0.8,
+            opacity: hoveredProject ? 1 : 0,
+            scale: hoveredProject ? 1 : 0.8,
           }}
           transition={{ duration: 0.3 }}
         >
@@ -174,57 +188,6 @@ export default function Portfolio() {
         document.body
       )}
 
-      {/* Project Details Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div 
-            className="project-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div 
-              className="project-modal-content"
-              initial={{ y: 50, opacity: 0, scale: 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 20, opacity: 0, scale: 0.95 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                className="project-modal-close hover-target"
-                onClick={() => setSelectedProject(null)}
-                aria-label="Close modal"
-              >
-                <X size={24} />
-              </button>
-              
-              <img 
-                src={selectedProject.image_url || 'https://via.placeholder.com/800x400'} 
-                alt={selectedProject.title}
-                className="project-modal-image"
-              />
-              
-              <div className="project-modal-body">
-                <h2>{selectedProject.title}</h2>
-                <p>{selectedProject.description}</p>
-                
-                {selectedProject.live_url && (
-                  <a 
-                    href={selectedProject.live_url} 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className="project-modal-live-btn hover-target"
-                  >
-                    <ExternalLink size={20} /> View Live Project
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
