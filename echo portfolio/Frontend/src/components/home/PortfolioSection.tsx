@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Folder from '../Folder';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 // @ts-ignore
 import GradientText from '../GradientText';
 import { ExternalLink, ArrowRight } from 'lucide-react';
@@ -31,7 +35,7 @@ export default function PortfolioSection() {
   }, []);
 
   return (
-    <section id="portfolio" className="section" style={{ perspective: '1000px' }}>
+    <section id="portfolio" className="section" style={{ perspective: '1000px', width: '100%' }}>
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, rotateX: 30, y: 50 }}
@@ -50,61 +54,78 @@ export default function PortfolioSection() {
       ) : projects.length === 0 ? (
         <div className="text-center" style={{ padding: '4rem 0' }}>Check the admin dashboard to add real projects here.</div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '4rem 0 4rem 0' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', height: '650px', width: '100%', paddingBottom: '2rem' }}>
-            <Folder 
-              color="#FF6B6B"
-              size={1.1}
-              items={projects.map((p) => (
-                <div 
-                  key={p.id} 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    padding: '1rem',
-                    boxSizing: 'border-box'
-                  }}
-                >
-                  <div style={{ flex: 1, overflow: 'hidden', borderRadius: '8px', marginBottom: '1rem' }}>
-                    <img 
-                      src={p.image_url} 
-                      alt={p.title} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                    />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '4rem 0 4rem 0', width: '100%' }}>
+          <div style={{ width: '100%', maxWidth: '1200px', padding: '0 2rem' }}>
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={30}
+              slidesPerView={1}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              autoplay={{ delay: 2000, disableOnInteraction: false }}
+              loop={projects.length > 3}
+              pagination={{ clickable: true }}
+              style={{ paddingBottom: '4rem' }}
+            >
+              {projects.map((p) => (
+                <SwiperSlide key={p.id} style={{ height: 'auto' }}>
+                  <div 
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                      padding: '1.2rem',
+                      boxSizing: 'border-box',
+                      backgroundColor: '#1B1722',
+                      border: '1px solid #555',
+                      borderRadius: '12px',
+                      boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+                    }}
+                  >
+                    <div style={{ width: '100%', height: '220px', overflow: 'hidden', borderRadius: '8px', marginBottom: '1.2rem', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#111' }}>
+                      <img 
+                        src={p.image_url} 
+                        alt={p.title} 
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                      />
+                    </div>
+                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.3rem', color: '#fff', fontWeight: '700' }}>{p.title}</h3>
+                    <p style={{ margin: '0 0 1.5rem 0', fontSize: '0.95rem', color: '#ccc', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: '1.5' }}>
+                      {p.description}
+                    </p>
+                    <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-start' }}>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (p.live_url) window.open(p.live_url, '_blank', 'noopener,noreferrer');
+                        }}
+                        style={{
+                          background: '#fff',
+                          color: '#111',
+                          border: 'none',
+                          padding: '0.6rem 1.2rem',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          fontSize: '0.85rem',
+                          fontWeight: 600,
+                          transition: 'background 0.2s'
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.background = '#eee'}
+                        onMouseOut={(e) => e.currentTarget.style.background = '#fff'}
+                      >
+                        View Site <ExternalLink size={14} />
+                      </button>
+                    </div>
                   </div>
-                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.25rem', color: '#333' }}>{p.title}</h3>
-                  <p style={{ margin: '0 0 1rem 0', fontSize: '0.85rem', color: '#666', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    {p.description}
-                  </p>
-                  <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation(); // prevent closing folder
-                        if (p.live_url) window.open(p.live_url, '_blank', 'noopener,noreferrer');
-                      }}
-                      style={{
-                        background: '#111',
-                        color: '#fff',
-                        border: 'none',
-                        padding: '0.6rem 1rem',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.5rem',
-                        fontSize: '0.85rem',
-                        fontWeight: 500,
-                        pointerEvents: 'auto'
-                      }}
-                    >
-                      View Site <ExternalLink size={14} />
-                    </button>
-                  </div>
-                </div>
+                </SwiperSlide>
               ))}
-            />
+            </Swiper>
           </div>
           
           <button 

@@ -48,16 +48,19 @@ export default function Home() {
         borderTopRightRadius: '40px',
         marginTop: '80px',
         boxShadow: '0 -20px 40px rgba(0,0,0,0.08)',
-        width: '100vw',
-        marginLeft: 'calc(-50vw + 50%)'
+        width: '100%'
       }}>
         <div className="container">
           <AboutSection />
           <PortfolioSection />
           <ServicesSection />
-          <Testimonials />
-          <Packages />
         </div> {/* End of white container */}
+
+        <Testimonials />
+
+        <div className="container">
+          <Packages />
+        </div>
 
         {/* Dark Mode Finale */}
         <div style={{

@@ -4,13 +4,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { X, Menu } from 'lucide-react';
 
 interface OverlayMenuProps {
-  showButton: boolean;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
   navLinks: { name: string; path: string }[];
   socialLinks: { name: string; url: string }[];
 }
 
-export default function OverlayMenu({ showButton, navLinks, socialLinks }: OverlayMenuProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function OverlayMenu({ isOpen, setIsOpen, navLinks, socialLinks }: OverlayMenuProps) {
   const location = useLocation();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
 
   useEffect(() => {
     setIsOpen(false);
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.hash, setIsOpen]);
 
   const menuVars = {
     initial: { x: '100%' },
@@ -48,40 +48,6 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
 
   return (
     <>
-      <div 
-        className="mobile-only"
-        style={{
-          position: 'fixed',
-          top: '2rem',
-          right: '5%',
-          zIndex: 1010,
-          opacity: showButton || isOpen ? 1 : 0,
-          pointerEvents: showButton || isOpen ? 'auto' : 'none',
-          transition: 'opacity 0.3s ease'
-        }}
-      >
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="hover-target"
-          style={{
-            background: isOpen ? '#3b60e4' : '#1c1d20',
-            border: 'none',
-            borderRadius: '50%',
-            width: '65px',
-            height: '65px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: '#fff',
-            cursor: 'pointer',
-            transition: 'background 0.3s ease, transform 0.3s ease',
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
 
       <AnimatePresence>
         {isOpen && (
@@ -90,15 +56,14 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
             initial="initial"
             animate="animate"
             exit="exit"
+            className="sidebar-overlay-menu"
             style={{
               position: 'fixed',
               top: 0,
               right: 0,
-              width: 'clamp(380px, 45vw, 650px)',
               height: '100vh',
               background: '#1c1d20',
               zIndex: 1005,
-              padding: '6rem 4rem 3rem 4rem',
               display: 'flex',
               flexDirection: 'column',
               boxShadow: '-10px 0 30px rgba(0,0,0,0.5)',
@@ -106,8 +71,31 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
             }}
           >
             <div style={{ display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
-              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '3px', fontWeight: 500, margin: 0, textTransform: 'uppercase', fontFamily: '"Inter", sans-serif' }}>Navigation</p>
-              <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.1)', margin: '1.5rem 0 2.5rem 0' }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem', letterSpacing: '3px', fontWeight: 600, margin: 0, textTransform: 'uppercase', fontFamily: '"Inter", sans-serif' }}>Navigation</p>
+                <button 
+                  onClick={() => setIsOpen(false)}
+                  className="hover-target"
+                  style={{
+                    background: 'rgba(255,255,255,0.1)',
+                    border: 'none',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'background 0.3s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+                >
+                  <X size={16} />
+                </button>
+              </div>
+              <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.1)', margin: '1.5rem 0 2rem 0' }} />
               
               <motion.div variants={containerVars} initial="initial" animate="animate" exit="exit" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {navLinks.map((link) => {
@@ -116,22 +104,21 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
                     <div key={link.name} style={{ overflow: 'hidden' }}>
                       <motion.div variants={linkVars as any} style={{ display: 'flex', alignItems: 'center' }}>
                         <div style={{ 
-                          width: '10px', 
-                          height: '10px', 
+                          width: '8px', 
+                          height: '8px', 
                           backgroundColor: '#fff', 
                           borderRadius: '50%', 
-                          marginRight: '1.5rem',
+                          marginRight: '0.8rem',
                           opacity: isActive ? 1 : 0,
                           transform: isActive ? 'scale(1)' : 'scale(0)',
                           transition: 'opacity 0.3s ease, transform 0.3s ease'
                         }} />
                         <Link 
                           to={link.path}
-                          className="hover-target"
+                          className="hover-target sidebar-link"
                           style={{
                             color: '#fff',
                             textDecoration: 'none',
-                            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                             fontWeight: 400,
                             fontFamily: '"Outfit", "Inter", sans-serif',
                             lineHeight: 1.2,
@@ -164,9 +151,9 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
               </motion.div>
             </div>
 
-            <div style={{ marginTop: '3rem', paddingTop: '2rem', flexShrink: 0 }}>
-              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '3px', fontWeight: 500, margin: '0 0 1rem 0', textTransform: 'uppercase', fontFamily: '"Inter", sans-serif' }}>Socials</p>
-              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+            <div style={{ marginTop: 'auto', paddingTop: '2rem', flexShrink: 0 }}>
+              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '3px', fontWeight: 500, margin: '0 0 1.5rem 0', textTransform: 'uppercase', fontFamily: '"Inter", sans-serif' }}>Socials</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {socialLinks.map((social) => (
                   <a 
                     key={social.name}
@@ -177,14 +164,22 @@ export default function OverlayMenu({ showButton, navLinks, socialLinks }: Overl
                     style={{
                       color: '#fff',
                       textDecoration: 'none',
-                      fontSize: '1rem',
+                      fontSize: '1.2rem',
                       fontWeight: 400,
                       fontFamily: '"Inter", sans-serif',
-                      transition: 'opacity 0.2s ease',
-                      opacity: 0.7
+                      transition: 'opacity 0.2s ease, transform 0.2s ease',
+                      opacity: 0.7,
+                      display: 'inline-block',
+                      width: 'fit-content'
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.8')}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                      e.currentTarget.style.transform = 'translateX(5px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = '0.8';
+                      e.currentTarget.style.transform = 'translateX(0)';
+                    }}
                   >
                     {social.name}
                   </a>

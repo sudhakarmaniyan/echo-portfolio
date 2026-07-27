@@ -42,12 +42,14 @@ export default function Layout() {
     };
   }, [location.pathname]);
 
+  const isHomePage = location.pathname === '/';
+
   return (
     <>
       <CursorFollower />
       <div className="layout-container">
         <Navbar />
-        <main className="container page-transition" style={{ flex: 1, width: '100%' }}>
+        <main className={`page-transition ${isHomePage ? '' : 'container'}`} style={{ flex: 1, width: '100%' }}>
           <Outlet />
         </main>
         <Footer />

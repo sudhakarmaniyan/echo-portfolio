@@ -17,13 +17,30 @@
   box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-primary);
-  overflow-x: hidden;
   min-height: 100vh;
   cursor: none; /* Hide default cursor */
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 /* Custom Cursor */
@@ -284,33 +301,40 @@ main {
 }
 
 /* Sidebar Menu */
-.sidebar-menu {
+.sidebar-overlay-menu {
   position: fixed;
   top: 0;
-  right: -500px;
-  width: 100%;
-  max-width: 450px;
+  right: 0;
+  width: 450px;
   height: 100vh;
-  background-color: #ffffff;
-  z-index: 999;
+  background-color: #1c1d20;
+  z-index: 1005;
   display: flex;
   flex-direction: column;
-  padding: 4rem 2rem;
-  transition: right 0.6s cubic-bezier(0.76, 0, 0.24, 1);
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+  padding: 6rem 4rem 3rem 4rem;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
 }
 
-.sidebar-menu.open {
-  right: 0;
+.sidebar-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 3.5rem;
+  font-weight: 400;
+  font-family: "Outfit", "Inter", sans-serif;
+  line-height: 1.2;
+  transition: color 0.3s ease;
 }
 
-.sidebar-logo-wrapper {
-  background-color: transparent;
-  padding: 0;
-  display: inline-block;
-  margin-bottom: 4rem;
-  width: max-content;
+@media (max-width: 768px) {
+  .sidebar-overlay-menu {
+    width: 220px;
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .sidebar-link {
+    font-size: 1.6rem;
+  }
 }
 
 .sidebar-close-btn {
@@ -319,10 +343,10 @@ main {
   right: 2rem;
   background: none;
   border: none;
-  color: #1c1d20;
-  cursor: none !important;
+  color: #fff;
+  cursor: pointer;
   transition: transform 0.3s ease;
-  z-index: 1000;
+  z-index: 1010;
 }
 
 .sidebar-close-btn:hover {
@@ -348,30 +372,6 @@ main {
   transform: translateY(30px);
   position: relative;
   width: max-content;
-}
-
-.sidebar-nav a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 3px;
-  bottom: -4px;
-  left: 0;
-  background-color: #3b60e4;
-  transition: width 0.3s ease;
-}
-
-.sidebar-menu.open .sidebar-nav a {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.sidebar-nav a:hover, .sidebar-nav a.active {
-  opacity: 1;
-}
-
-.sidebar-nav a:hover::after, .sidebar-nav a.active::after {
-  width: 100%;
 }
 
 /* Footer */
@@ -463,8 +463,7 @@ main {
 .hero {
   background: transparent;
   padding: 12rem 0 8rem;
-  margin: 0 calc(-50vw + 50%);
-  width: 100vw;
+  width: 100%;
   border-radius: 0;
   display: flex;
   justify-content: center;
@@ -536,7 +535,7 @@ main {
 .hero-actions { display: flex; align-items: center; gap: 2rem; margin-top: 3rem; }
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 2.5rem;
 }
 
@@ -666,6 +665,16 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.about-image-wrapper {
+  min-height: 500px;
+}
+
+@media (max-width: 768px) {
+  .about-image-wrapper {
+    min-height: 350px;
+  }
 }
 
 .feature-item {
@@ -884,8 +893,7 @@ main {
 
 .swiper-container-wrapper {
   margin-top: 3rem;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   padding: 0 5vw;
 }
 
@@ -1008,6 +1016,9 @@ main {
 @media (max-width: 768px) {
   .portfolio-card {
     height: 480px;
+  }
+  .portfolio-card-img-wrapper {
+    padding: 1.5rem;
   }
   .portfolio-card-content h3 {
     font-size: 1.5rem;
@@ -1321,7 +1332,8 @@ main {
 .snellenberg-card-image-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 2rem;
   transform-origin: center;
 }
 
@@ -1446,9 +1458,8 @@ main {
 /* Snellenberg Hero Section */
 .snellenberg-hero {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   margin-top: -80px; /* Pull up over the navbar padding */
-  margin-left: calc(-50vw + 50%); /* Break out of container */
   background: #a0a3a7;
   position: sticky;
   top: 0;
@@ -1475,7 +1486,7 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: 1; /* Places it behind the marquee text */
@@ -1486,7 +1497,7 @@ main {
 .hero-marquee-container {
   position: absolute;
   bottom: 12vh;
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   z-index: 6; /* Changed from 4 to 6 so it runs in front of the CEO */
@@ -1745,4 +1756,60 @@ body[data-path="/contact"] .hero-marquee-container {
   font-size: 1.2rem;
   font-weight: 500;
   font-style: italic;
+}
+
+/* Swiper Custom Styles */
+.testimonials-swiper {
+  padding-bottom: 4rem !important;
+}
+
+.testimonials-swiper .swiper-pagination-bullet {
+  background: #F59E0B;
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s ease;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  background: #F59E0B;
+  opacity: 1;
+  width: 24px;
+  border-radius: 5px;
+}
+
+.testimonials-swiper .swiper-button-next,
+.testimonials-swiper .swiper-button-prev {
+  color: #F59E0B;
+  background: rgba(17, 17, 17, 0.8);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.testimonials-swiper .swiper-button-next::after,
+.testimonials-swiper .swiper-button-prev::after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Floating Menu Button Visibility */
+.floating-menu-btn {
+  transition: opacity 0.3s ease;
+}
+.floating-menu-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.floating-menu-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .floating-menu-btn {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
 }

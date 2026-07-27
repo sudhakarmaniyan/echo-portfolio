@@ -30,7 +30,7 @@ export default function Packages() {
   }, []);
 
   return (
-    <div id="packages" className="section" style={{ background: 'var(--bg-alt)', margin: '0 calc(-50vw + 50%)', padding: '6rem 0', width: '100vw' }}>
+    <div id="packages" className="section" style={{ background: 'var(--bg-alt)', padding: '6rem 0', width: '100%' }}>
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
         <div className="text-center mb-12">
           <h2>Choose Your Plan</h2>

@@ -9,6 +9,10 @@ interface Project {
   description: string;
   image_url: string;
   live_url: string;
+  gallery_image_1?: string;
+  gallery_image_2?: string;
+  testimonial_thumbnail?: string;
+  testimonial_quote?: string;
 }
 
 export default function ProjectDetails() {
@@ -33,11 +37,15 @@ export default function ProjectDetails() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  // Fake Gallery Data
+  // Dynamic Gallery Data with Fallbacks if none provided
   const galleryImages = [
+    project?.gallery_image_1,
+    project?.gallery_image_2
+  ].filter(Boolean) as string[];
+
+  const displayImages = galleryImages.length > 0 ? galleryImages : [
     'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800',
-    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=800',
-    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800'
+    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=800'
   ];
 
   if (loading) {
@@ -143,7 +151,7 @@ export default function ProjectDetails() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '2rem'
         }}>
-          {galleryImages.map((img, idx) => (
+          {displayImages.map((img, idx) => (
             <motion.div 
               key={idx}
               className="gallery-item hover-target"
@@ -163,6 +171,7 @@ export default function ProjectDetails() {
       </div>
 
       {/* Video Testimonial Section */}
+      {(project.testimonial_thumbnail || project.testimonial_quote) && (
       <div style={{ marginBottom: '6rem' }}>
         <h2 style={{ fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}>Client Testimonial</h2>
         <div className="hover-target" style={{
@@ -176,7 +185,7 @@ export default function ProjectDetails() {
           boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
         }}>
           <img 
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200" 
+            src={project.testimonial_thumbnail || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200"} 
             alt="Video Thumbnail" 
             style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }}
           />
@@ -187,7 +196,8 @@ export default function ProjectDetails() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff'
+            color: '#fff',
+            padding: '2rem'
           }}>
             <motion.div 
               whileHover={{ scale: 1.1 }}
@@ -208,12 +218,13 @@ export default function ProjectDetails() {
             >
               <Play size={40} fill="currentColor" style={{ marginLeft: '5px' }} />
             </motion.div>
-            <p style={{ fontSize: '1.5rem', fontStyle: 'italic', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
-              "They completely transformed our business..."
+            <p style={{ fontSize: '1.5rem', fontStyle: 'italic', textShadow: '0 2px 4px rgba(0,0,0,0.5)', textAlign: 'center' }}>
+              "{project.testimonial_quote || 'They completely transformed our business...'}"
             </p>
           </div>
         </div>
       </div>
+      )}
 
     </div>
   );

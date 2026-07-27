@@ -3,32 +3,56 @@ import { Globe, Mail, Phone, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer-content">
-          <div className="footer-brand">
+        <motion.div 
+          className="footer-content"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <motion.div className="footer-brand" variants={itemVariants}>
             <div className="logo" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center' }}>
               <img 
                 src="/logo.png" 
                 alt="Echo Digital Works Logo" 
                 style={{ 
-                  height: '45px', 
+                  height: '80px', 
                   width: 'auto',
                   objectFit: 'contain'
                 }} 
               />
             </div>
             <p>Crafting immersive digital experiences that push boundaries.</p>
-          </div>
-          <div className="footer-links">
+          </motion.div>
+          
+          <motion.div className="footer-links" variants={itemVariants}>
             <h4>Explore</h4>
             <Link to="/about">About Us</Link>
             <Link to="/portfolio">Portfolio</Link>
             <Link to="/packages">Packages</Link>
             <Link to="/contact">Contact</Link>
-          </div>
-          <div className="footer-social">
+          </motion.div>
+          
+          <motion.div className="footer-social" variants={itemVariants}>
             <h4>Connect</h4>
             <div className="social-icons" style={{ marginBottom: '2rem' }}>
               <a href="#" aria-label="Website"><Globe /></a>
@@ -57,7 +81,7 @@ export default function Footer() {
                     width: '140px',
                     height: '140px',
                     borderRadius: '50%',
-                    backgroundColor: '#3b82f6', // Bright blue color matching the screenshot
+                    backgroundColor: '#3b82f6', 
                     color: 'white',
                     textDecoration: 'none',
                     fontWeight: 600,
@@ -76,11 +100,18 @@ export default function Footer() {
                 </Link>
               </motion.div>
             </motion.div>
-          </div>
-        </div>
-        <div className="footer-bottom">
+          </motion.div>
+        </motion.div>
+        
+        <motion.div 
+          className="footer-bottom"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
           <p>© {new Date().getFullYear()} Echo Digital Works. All rights reserved.</p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

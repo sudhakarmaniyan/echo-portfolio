@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
+import './SubscribeSection.css';
+
 function MagneticButton({ children, ...props }: any) {
   const ref = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -44,44 +46,17 @@ export default function SubscribeSection() {
 
       <form
         onSubmit={(e) => { e.preventDefault(); alert('Subscribed successfully!'); }}
-        className="mx-auto"
-        style={{
-          display: 'flex',
-          maxWidth: '550px',
-          background: 'rgba(255,255,255,0.05)',
-          borderRadius: '50px',
-          padding: '0.5rem',
-          border: '1px solid rgba(255,255,255,0.1)',
-          backdropFilter: 'blur(10px)'
-        }}
+        className="mx-auto subscribe-form"
       >
         <input
           type="email"
           placeholder="Enter your email"
           required
-          style={{
-            flex: 1,
-            border: 'none',
-            background: 'transparent',
-            padding: '1rem 1.5rem',
-            fontSize: '1.05rem',
-            outline: 'none',
-            color: '#fff'
-          }}
+          className="subscribe-input"
         />
         <MagneticButton
           type="submit"
-          style={{
-            borderRadius: '40px',
-            padding: '1rem 2.5rem',
-            margin: '0',
-            fontWeight: 600,
-            fontSize: '1.05rem',
-            background: 'var(--accent-purple)',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer'
-          }}
+          className="subscribe-btn"
         >
           Subscribe
         </MagneticButton>

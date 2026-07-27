@@ -1,0 +1,108 @@
+.bento-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.bento-item {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  padding: 2.5rem;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bento-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.bento-item-dark {
+  background: #0a0a0c;
+  color: white;
+}
+
+.bento-item-dark .text-secondary {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.bento-mission {
+  grid-column: span 2;
+  grid-row: span 1;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.1);
+  justify-content: flex-start;
+}
+
+.bento-ceo {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.bento-ceo:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.bento-location {
+  grid-column: span 1;
+  grid-row: span 1;
+  justify-content: space-between;
+}
+
+.bento-stats {
+  grid-column: span 1;
+  grid-row: span 1;
+  justify-content: space-between;
+}
+
+.bento-tech {
+  grid-column: span 4;
+  grid-row: span 1;
+}
+
+.tech-tag {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .bento-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-mission { grid-column: span 2; }
+  .bento-ceo { grid-column: span 2; grid-row: span 1; min-height: 400px; }
+  .bento-location { grid-column: span 1; }
+  .bento-stats { grid-column: span 1; }
+  .bento-tech { grid-column: span 2; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .bento-grid-container {
+    grid-template-columns: 1fr;
+  }
+  .bento-mission, .bento-ceo, .bento-location, .bento-stats, .bento-tech {
+    grid-column: span 1;
+    grid-row: auto;
+  }
+  .bento-ceo { min-height: 350px; }
+}
