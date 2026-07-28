@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Menu } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface OverlayMenuProps {
   isOpen: boolean;

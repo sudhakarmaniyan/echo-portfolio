@@ -13,7 +13,6 @@ interface Testimonial {
 }
 
 export default function Testimonials() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [galleryItems, setGalleryItems] = useState<{ image: string, text: string }[]>([]);
 
@@ -129,7 +128,7 @@ export default function Testimonials() {
         const apiTestimonials: Testimonial[] = await res.json();
         
         if (isMounted) {
-          setTestimonials(apiTestimonials);
+          // removed setTestimonials
         }
 
         if (apiTestimonials && apiTestimonials.length > 0) {

@@ -6,7 +6,6 @@ import GooeyNav from './GooeyNav';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showFloatingNav, setShowFloatingNav] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
@@ -37,14 +36,7 @@ export default function Navbar() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Show when scrolling up and past a small threshold
-      if (currentScrollY < lastScrollY.current && currentScrollY > 50) {
-        setShowFloatingNav(true);
-      } 
-      // Hide when scrolling down or at the top
-      else if (currentScrollY > lastScrollY.current || currentScrollY <= 50) {
-        setShowFloatingNav(false);
-      }
+      // removed showFloatingNav logic
       
       setIsScrolled(currentScrollY > 50);
       lastScrollY.current = currentScrollY;
