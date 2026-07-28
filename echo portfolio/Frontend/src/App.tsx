@@ -8,6 +8,7 @@ import Testimonials from './pages/Testimonials';
 import Packages from './pages/Packages';
 import ContactUs from './pages/ContactUs';
 import ServiceDetails from './pages/ServiceDetails';
+import Services from './pages/Services';
 import './index.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="testimonials" element={<Testimonials />} />
           <Route path="packages" element={<Packages />} />
           <Route path="contact" element={<ContactUs />} />
+          <Route path="services" element={<Services />} />
           <Route path="service/:id" element={<ServiceDetails />} />
         </Route>
       </Routes>

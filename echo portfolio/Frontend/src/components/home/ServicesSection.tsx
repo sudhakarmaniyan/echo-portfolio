@@ -6,20 +6,7 @@ import BounceCards from '../BounceCards';
 import { servicesData } from '../../data/services';
 
 export default function ServicesSection() {
-  const [services] = useState(servicesData);
   const navigate = useNavigate();
-
-  // NOTE: Prepared for future admin feature
-  // Admin will be able to add new expertise through the admin panel.
-  // This can be hooked up to your backend API like this:
-  /*
-  useEffect(() => {
-    fetch('/api/services')
-      .then(res => res.json())
-      .then(data => setServices(data))
-      .catch(err => console.error("Failed to load services", err));
-  }, []);
-  */
 
   const handleExplore = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
@@ -124,7 +111,7 @@ export default function ServicesSection() {
             ]}
             enableHover={true}
           >
-            {services.map((service) => (
+            {servicesData.map((service) => (
               <ServiceCard key={service.id} service={service} isMobile={false} />
             ))}
           </BounceCards>
@@ -132,7 +119,7 @@ export default function ServicesSection() {
 
         {/* Mobile View: Vertical Grid */}
         <div className="mobile-only" style={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '0 1rem' }}>
-          {services.map((service) => (
+          {servicesData.map((service) => (
             <ServiceCard key={service.id} service={service} isMobile={true} />
           ))}
         </div>

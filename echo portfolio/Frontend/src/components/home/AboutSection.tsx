@@ -4,7 +4,7 @@ import TiltedCard from '../TiltedCard';
 import './AboutSection.css';
 
 export default function AboutSection() {
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -12,7 +12,7 @@ export default function AboutSection() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
@@ -51,7 +51,7 @@ export default function AboutSection() {
         <motion.div className="bento-ceo" variants={itemVariants}>
           <div style={{ width: '100%', height: '100%', borderRadius: '24px', overflow: 'hidden' }}>
             <TiltedCard
-              imageSrc="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
+              imageSrc="/boopathy-echo-ceo.jpg"
               altText="CEO Profile"
               captionText="Our CEO"
               containerHeight="100%"
@@ -65,7 +65,7 @@ export default function AboutSection() {
               displayOverlayContent={true}
               overlayContent={
                 <div style={{ position: 'absolute', bottom: '2rem', left: '2rem', color: '#fff', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-                  <h3 style={{ margin: 0, fontSize: '1.8rem', letterSpacing: '-0.5px' }}>Sudhakar</h3>
+                  <h3 style={{ margin: 0, fontSize: '1.8rem', letterSpacing: '-0.5px' }}>Boopathy</h3>
                   <p style={{ margin: 0, opacity: 0.9, fontSize: '1.1rem' }}>Founder & CEO</p>
                 </div>
               }

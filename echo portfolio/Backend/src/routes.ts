@@ -200,11 +200,11 @@ router.get('/services', async (req, res) => {
 });
 
 router.post('/services', authenticateToken, async (req, res) => {
-  const { title, description, icon } = req.body;
+  const { title, description, icon, subtitle, color, bg_image } = req.body;
   try {
     const result = await query(
-      'INSERT INTO services (title, description, icon) VALUES ($1, $2, $3) RETURNING *',
-      [title, description, icon]
+      'INSERT INTO services (title, description, icon, subtitle, color, bg_image) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [title, description, icon, subtitle, color, bg_image]
     );
     await logActivity('CREATE', 'Service', `Added new service: ${title}`, result.rows[0].id);
     res.status(201).json(result.rows[0]);
@@ -215,11 +215,11 @@ router.post('/services', authenticateToken, async (req, res) => {
 
 router.put('/services/:id', authenticateToken, async (req, res) => {
   const { id } = req.params;
-  const { title, description, icon } = req.body;
+  const { title, description, icon, subtitle, color, bg_image } = req.body;
   try {
     const result = await query(
-      'UPDATE services SET title = $1, description = $2, icon = $3 WHERE id = $4 RETURNING *',
-      [title, description, icon, id]
+      'UPDATE services SET title = $1, description = $2, icon = $3, subtitle = $4, color = $5, bg_image = $6 WHERE id = $7 RETURNING *',
+      [title, description, icon, subtitle, color, bg_image, id]
     );
     await logActivity('UPDATE', 'Service', `Updated service: ${title}`, parseInt(id));
     res.json(result.rows[0]);

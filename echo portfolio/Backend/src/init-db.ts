@@ -40,7 +40,10 @@ const initDB = async () => {
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         description TEXT,
-        icon VARCHAR(255)
+        icon VARCHAR(255),
+        subtitle VARCHAR(255),
+        color VARCHAR(50),
+        bg_image VARCHAR(255)
       );
     `);
     console.log('✅ Services table is ready.');

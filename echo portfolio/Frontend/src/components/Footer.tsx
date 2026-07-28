@@ -3,7 +3,7 @@ import { Globe, Mail, Phone, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -14,7 +14,7 @@ export default function Footer() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
@@ -47,6 +47,7 @@ export default function Footer() {
           <motion.div className="footer-links" variants={itemVariants}>
             <h4>Explore</h4>
             <Link to="/about">About Us</Link>
+            <Link to="/services">Services</Link>
             <Link to="/portfolio">Portfolio</Link>
             <Link to="/packages">Packages</Link>
             <Link to="/contact">Contact</Link>

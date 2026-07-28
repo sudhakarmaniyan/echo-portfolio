@@ -12,7 +12,14 @@ const updateDB = async () => {
       ADD COLUMN IF NOT EXISTS testimonial_quote TEXT;
     `);
 
-    console.log('✅ Projects table schema updated successfully.');
+    await query(`
+      ALTER TABLE services
+      ADD COLUMN IF NOT EXISTS subtitle VARCHAR(255),
+      ADD COLUMN IF NOT EXISTS color VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS bg_image VARCHAR(255);
+    `);
+
+    console.log('✅ Database schema updated successfully.');
     process.exit(0);
   } catch (error) {
     console.error('❌ Error updating database schema:', error);

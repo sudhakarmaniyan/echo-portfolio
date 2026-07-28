@@ -1,17 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
-import { servicesData } from '../data/services';
+import { ArrowLeft, LayoutDashboard, Search, MonitorSmartphone, Code2, PenTool, Globe, Server, Database, Smartphone, Megaphone, Zap } from 'lucide-react';
+
+const IconMap: Record<string, any> = {
+  LayoutDashboard, Search, MonitorSmartphone, Code2, PenTool, Globe, Server, Database, Smartphone, Megaphone, Zap
+};
 
 export default function ServiceDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
-  const service = servicesData.find(s => s.id === id);
+  const [service, setService] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetch(`http://localhost:5000/api/services`)
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const foundService = data.find((s: any) => s.id.toString() === id);
+          if (foundService) {
+            const IconComp = IconMap[foundService.icon] || LayoutDashboard;
+            setService({ ...foundService, icon: <IconComp /> });
+          }
+        }
+      })
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
   }, [id]);
 
   const x = useMotionValue(0);
@@ -32,6 +48,14 @@ export default function ServiceDetails() {
     x.set(0);
     y.set(0);
   };
+
+  if (loading) {
+    return (
+      <div className="section" style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <h2>Loading service details...</h2>
+      </div>
+    );
+  }
 
   if (!service) {
     return (
@@ -136,7 +160,9 @@ export default function ServiceDetails() {
               </p>
               
               <div style={{ marginTop: '3rem', display: 'flex', gap: '1rem' }}>
-                <button style={{
+                <button 
+                  onClick={() => navigate('/contact')}
+                  style={{
                   padding: '1rem 2rem',
                   fontSize: '1.2rem',
                   fontWeight: 600,

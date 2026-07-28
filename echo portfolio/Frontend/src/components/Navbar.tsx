@@ -13,6 +13,7 @@ export default function Navbar() {
   const fullNavLinks = [
     { name: 'Home', path: '/#hero' },
     { name: 'About', path: '/#about' },
+    { name: 'Services', path: '/services' },
     { name: 'Portfolio', path: '/#portfolio' },
     { name: 'Testimonials', path: '/#testimonials' },
     { name: 'Packages', path: '/#packages' },
@@ -22,6 +23,7 @@ export default function Navbar() {
   const constantLinks = [
     { name: 'Home', path: '/#hero' },
     { name: 'About', path: '/#about' },
+    { name: 'Services', path: '/services' },
     { name: 'Portfolio', path: '/#portfolio' },
     { name: 'Testimonials', path: '/#testimonials' },
     { name: 'Packages', path: '/#packages' },
@@ -110,14 +112,14 @@ export default function Navbar() {
               src="/logo.png" 
               alt="Echo Digital Works" 
               style={{ 
-                height: '85px',
+                height: isScrolled ? '50px' : '85px',
                 width: 'auto',
                 objectFit: 'contain',
                 display: 'block',
                 filter: shouldBeWhite 
                   ? 'brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.5))' 
                   : 'brightness(0)',
-                transition: 'filter 0.3s ease'
+                transition: 'all 0.3s ease'
               }} 
             />
           </a>

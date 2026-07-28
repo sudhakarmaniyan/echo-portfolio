@@ -19,7 +19,7 @@ export default function BounceCards({
   ],
   enableHover = true,
   children
-}) {
+}: any) {
   const containerRef = useRef(null);
   
   // Use children if provided, otherwise fallback to images
@@ -41,7 +41,7 @@ export default function BounceCards({
     return () => ctx.revert();
   }, [animationStagger, easeType, animationDelay]);
 
-  const getNoRotationTransform = (transformStr) => {
+  const getNoRotationTransform = (transformStr: any) => {
     const hasRotate = /rotate\([\s\S]*?\)/.test(transformStr);
     if (hasRotate) {
       return transformStr.replace(/rotate\([\s\S]*?\)/, 'rotate(0deg)');
@@ -52,7 +52,7 @@ export default function BounceCards({
     }
   };
 
-  const getPushedTransform = (baseTransform, offsetX) => {
+  const getPushedTransform = (baseTransform: any, offsetX: any) => {
     const translateRegex = /translate\(([-0-9.]+)px\)/;
     const match = baseTransform.match(translateRegex);
     if (match) {
@@ -64,7 +64,7 @@ export default function BounceCards({
     }
   };
 
-  const pushSiblings = (hoveredIdx) => {
+  const pushSiblings = (hoveredIdx: any) => {
     if (!enableHover || !containerRef.current) return;
 
     const q = gsap.utils.selector(containerRef);
@@ -147,7 +147,7 @@ export default function BounceCards({
               {child}
             </div>
           ))
-        : images.map((src, idx) => (
+        : images.map((src: any, idx: any) => (
             <div
               key={idx}
               className={`card card-${idx}`}
